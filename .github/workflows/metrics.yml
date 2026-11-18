@@ -1,0 +1,30 @@
+name: Generate 3D Metrics Calendar
+
+on:
+  schedule: [{cron: "0 0 * * *"}]
+  workflow_dispatch:
+  push: {branches: ["main", "master"]}
+
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Full Year Isometric Calendar
+        uses: lowlighter/metrics@latest
+        with:
+          filename: github-metrics-isocalendar-full.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: full-year
+
+      - name: Half Year Isometric Calendar
+        uses: lowlighter/metrics@latest
+        with:
+          filename: github-metrics-isocalendar-half.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: half-year
